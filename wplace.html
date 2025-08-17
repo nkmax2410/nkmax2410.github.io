@@ -53,6 +53,8 @@
 </head>
 <body style="text-align: center;">
 <h1>wplace 緯度経度を入力してアクセス</h1>
+<p>緯度/経度は小数で入力してください｡<br>
+南緯・西経は負の数で表します｡</p>
 <form id="longLat">
 <label>緯度:&nbsp;<input type="number" id="lat" step="any"></label>&nbsp;&nbsp;&nbsp;
 <label>経度:&nbsp;<input type="number" id="long" step="any"></label><br>
@@ -80,12 +82,11 @@
         let ptext = ""
         if ((緯度 < -90) || (90 < 緯度) || (経度 < -180) || (180 < 経度) || 緯度 === "" || 経度 === "") {
             html += '<a href="#" id="notLink">開く</a>';
-            ptext = "無効な緯度/経度です。";
+            ptext = "無効な緯度/経度です｡";
         }
         else {
             const url = `https://wplace.live/?lat=${緯度}&lng=${経度}&zoom=12`;
             html += `<a id="link" href="${url}" target="_blank">開く</a>`
-            console.log(`じっこうされているよ html: ${html}`)
             ptext = `緯度:&nbsp;${緯度}&nbsp;&nbsp;&nbsp;経度:&nbsp;${経度}`;
         }
         リンクフィールド.innerHTML = html;
@@ -95,5 +96,6 @@
 </body>
 
 </html> 
+
 
 
