@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>wplace 緯度経度</title>
+<style>
+    #linkDiv {
+        margin: 50px 0 0;
+    }
+    #linkDiv a {
+        display: block;
+        text-decoration: none;
+        color: #ffffff;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 3rem;
+        width: 20%;
+        margin: 0 auto;
+        border: 2px solid #000000;
+    }
+    #link {
+        background-color: #f9802d;
+        cursor: pointer;
+    }
+    #notLink {
+        background-color: rgb(128, 128, 128);
+        cursor: default;
+    } 
+    #link:hover{
+        background-color: #f39b61;
+    }
+    #longLat {
+        font-size: x-large;
+    }
+    #longLat input {
+        height: 1em;
+        font-size: x-large;
+    }
+    #longLat button {
+        padding: 0.25em 1em;
+        font-size: large;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body style="text-align: center;">
+<h1>wplace 緯度経度を入力してアクセス</h1>
+<form id="longLat">
+<label>緯度:&nbsp;<input type="number" id="lat" step="any"></label>&nbsp;&nbsp;&nbsp;
+<label>経度:&nbsp;<input type="number" id="long" step="any"></label><br>
+<p></p>
+<button type="submit">確定</button>
+</form>
+<div id="linkDiv">
+    <a href="#" id="notLink">開く</a>
+</div>
+<p id="p">緯度/経度を入力してください｡</p>
+<script>
+    "use strict";
+    const 緯度経度フォーム = document.getElementById("longLat");
+    const リンクフィールド = document.getElementById("linkDiv");
+    const 非リンク = document.getElementById("notLink");
+    緯度経度フォーム.addEventListener("submit", リンク生成);
+    非リンク.addEventListener("click", (event) => event.preventDefault())
+
+    function リンク生成(event) {
+        event.preventDefault();
+        const 緯度 = document.getElementById("lat").value;
+        const 経度 = document.getElementById("long").value;
+        const p = document.getElementById("p");
+        let html = ""
+        let ptext = ""
+        if ((緯度 < -90) || (90 < 緯度) || (経度 < -180) || (180 < 経度) || 緯度 === "" || 経度 === "") {
+            html += '<a href="#" id="notLink">開く</a>';
+            ptext = "無効な緯度/経度です。";
+        }
+        else {
+            const url = `https://wplace.live/?lat=${緯度}&lng=${経度}&zoom=12`;
+            html += `<a id="link" href="${url}" target="_blank">開く</a>`
+            console.log(`じっこうされているよ html: ${html}`)
+            ptext = `緯度:&nbsp;${緯度}&nbsp;&nbsp;&nbsp;経度:&nbsp;${経度}`;
+        }
+        リンクフィールド.innerHTML = html;
+        p.innerHTML = ptext;
+    }
+</script>
+</body>
+</html> 
