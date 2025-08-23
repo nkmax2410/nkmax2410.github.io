@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国 省クイズ</title>
+<style>
+    body {
+        font-family: 'Noto Sans JP', 'Noto Sans SC', sans-serif;
+    }
+    #button {
+        font-size: large;
+        font-weight: bold;
+        padding: 10px;
+        background-color: rgb(49, 66, 75);
+        color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid gray;
+        cursor: pointer;
+
+    }
+
+    #answerField{
+        background-color: #ffffff;
+        font-weight: bolder;
+        padding: 10px;
+        position: absolute;
+        top: 200px;
+        right: 40px;
+        width:200px;
+        height: 5rem; 
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 1170px) {
+        #answerField {
+            top: 300px;
+            right:40px;
+        }
+        #picField img {
+            min-width: 702px;
+        }
+    }
+</style>
+</head>
+<body style="text-align: center;">
+    <h1>中国 省クイズ</h1>
+    <div style="position: relative; margin: 5px auto;">
+    <div id="picField"></div>
+    <div id="answerField">答え:<br><span id="answerText"></span></div>
+    </div>
+
+    <div><span id="button">次へ</span></div>
+    <div><p id="endSign">(1問目)</p></div>
+<script>
+    "use strict";
+    const 写真表示フィールド = document.getElementById("picField");
+    const ボタン = document.getElementById("button");
+    const 州数 = 31;
+    const 州番号上限 = (州数 - 1) * 2;
+    const 終了しました = document.getElementById("endSign");
+    const 答え表示テキスト部 = document.getElementById("answerText");
+    const 表示順 = []
+    const 州名 = {
+pic1: "河北省 (河北省)",
+pic2: "山西省 (山西省)",
+pic3: "遼寧省 (辽宁省)",
+pic4: "吉林省 (吉林省)",
+pic1: "河北省<br>(河北省)",
+pic2: "山西省<br>(山西省)",
+pic3: "遼寧省<br>(辽宁省)",
+pic4: "吉林省<br>(吉林省)",
+pic5: "黒竜江省<br>(黑龙江省)",
+pic6: "江蘇省<br>(江苏省)",
+pic7: "浙江省<br>(浙江省)",
+pic8: "安徽省<br>(安徽省)",
+pic9: "福建省<br>(福建省)",
+pic10: "江西省<br>(江西省)",
+pic11: "山東省<br>(山东省)",
+pic12: "河南省<br>(河南省)",
+pic13: "湖北省<br>(湖北省)",
+pic14: "湖南省<br>(湖南省)",
+pic15: "広東省<br>(广东省)",
+pic16: "海南省<br>(海南省)",
+pic17: "四川省<br>(四川省)",
+pic18: "貴州省<br>(贵州省)",
+pic19: "雲南省<br>(云南省)",
+pic20: "陝西省<br>(陕西省)",
+pic21: "甘粛省<br>(甘肃省)",
+pic22: "青海省<br>(青海省)",
+pic23: "内モンゴル自治区<br>(内蒙古自治区)",
+pic24: "広西チワン族自治区<br>(广西壮族自治区)",
+pic25: "チベット自治区<br>(西藏自治区)",
+pic26: "寧夏回族自治区<br>(宁夏回族自治区)",
+pic27: "新疆ウイグル自治区<br>(新疆维吾尔自治区)",
+pic28: "北京市<br>(北京市)",
+pic29: "天津市<br>(天津市)",
+pic30: "上海市<br>(上海市)",
+pic31: "重慶市<br>(重庆市)"
+    }
+    while (表示順.length < (Math.floor(州番号上限 / 2)) + 1) {
+        const 番号 = Math.floor(Math.random() * (州番号上限 / 2 + 1)) + 1;
+        if (!(表示順.includes(番号))) {
+            表示順.push(番号);
+        }
+    }
+    let 現在表示している写真の順番 = 0;
+    写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 55%;">`
+    ボタン.addEventListener("click", () => {
+        if (現在表示している写真の順番 <= 州番号上限) {
+            現在表示している写真の順番 += 1;
+            if (現在表示している写真の順番 % 2) {
+                const 州名プロパティ = "pic" + 表示順[Math.floor(現在表示している写真の順番 / 2)].toString();
+                答え表示テキスト部.innerHTML = 州名[州名プロパティ];
+            }
+            else {
+                答え表示テキスト部.innerHTML = "";
+                写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 55%;">`
+                終了しました.innerHTML = `(${Math.floor(現在表示している写真の順番 / 2) + 1}問目)`
+            }
+        }
+        else if (現在表示している写真の順番 === 州番号上限 + 1) {
+            終了しました.innerHTML = "終了しました";
+            ボタン.style.backgroundColor = "gray";
+            ボタン.style.cursor = "not-allowed";
+        }
+    })
+    
+</script>
+</body>
+</html>
