@@ -106,7 +106,7 @@ pic31: "重慶市<br>(重庆市)"
         }
     }
     let 現在表示している写真の順番 = 0;
-    写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 55%;">`
+    写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 50%;">`
     ボタン.addEventListener("click", () => {
         if (現在表示している写真の順番 <= 州番号上限) {
             現在表示している写真の順番 += 1;
@@ -116,7 +116,7 @@ pic31: "重慶市<br>(重庆市)"
             }
             else {
                 答え表示テキスト部.innerHTML = "";
-                写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 55%;">`
+                写真表示フィールド.innerHTML = `<img src="./pictures/china_provinces_quiz/${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 50%;">`
                 終了しました.innerHTML = `(${Math.floor(現在表示している写真の順番 / 2) + 1}問目)`
             }
         }
@@ -130,3 +130,4 @@ pic31: "重慶市<br>(重庆市)"
 </script>
 </body>
 </html>
+
