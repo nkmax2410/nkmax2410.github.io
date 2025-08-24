@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アメリカ 州クイズ</title>
+<style>
+    #button {
+        font-size: large;
+        font-weight: bold;
+        padding: 10px;
+        background-color: rgb(49, 66, 75);
+        color: #ffffff;
+        border-radius: 10px;
+        border: 1px solid gray;
+        cursor: pointer;
+
+    }
+
+    #answerField{
+        background-color: #ffffff;
+        font-weight: bolder;
+        padding: 10px;
+        position: absolute;
+        top: 200px;
+        right: 40px;
+        width:200px;
+        height: 5rem; 
+        border: 2px solid black;
+        border-radius: 10px;
+    }
+
+    @media (max-width: 1170px) {
+        #answerField {
+            top: 300px;
+            right:40px;
+        }
+        #picField img {
+            min-width: 702px;
+        }
+    }
+</style>
+</head>
+<body style="text-align: center;">
+    <h1>アメリカ 州クイズ</h1>
+    <div style="position: relative; margin: 5px auto;">
+    <div id="picField"></div>
+    <div id="answerField">問題:<br><span id="answerText"></span></div>
+    </div>
+
+    <div><span id="button">次へ</span></div>
+    <div><p id="endSign">(1問目)</p></div>
+<script>
+    "use strict";
+    const 写真表示フィールド = document.getElementById("picField");
+    const ボタン = document.getElementById("button");
+    const 州番号上限 = 94;
+    const 終了しました = document.getElementById("endSign");
+    const 答え表示テキスト部 = document.getElementById("answerText");
+    const 表示順 = []
+    const 州名 = {
+pic1: "デラウェア州<br>(Delaware)",
+
+pic2: "ペンシルベニア州<br>(Pennsylvania)",
+
+pic3: "ニュージャージー州<br>(New Jersey)",
+
+pic4: "ジョージア州<br>(Georgia)",
+
+pic5: "コネチカット州<br>(Connecticut)",
+
+pic6: "マサチューセッツ州<br>(Massachusetts)",
+
+pic7: "メリーランド州<br>(Maryland)",
+
+pic8: "サウスカロライナ州<br>(South Carolina)",
+
+pic9: "ニューハンプシャー州<br>(New Hampshire)",
+
+pic10: "バージニア州<br>(Virginia)",
+
+pic11: "ニューヨーク州<br>(New York)",
+
+pic12: "ノースカロライナ州<br>(North Carolina)",
+
+pic13: "ロードアイランド州<br>(Rhode Island)",
+
+pic14: "バーモント州<br>(Vermont)",
+
+pic15: "ケンタッキー州<br>(Kentucky)",
+
+pic16: "テネシー州<br>(Tennessee)",
+
+pic17: "オハイオ州<br>(Ohio)",
+
+pic18: "ルイジアナ州<br>(Louisiana)",
+
+pic19: "インディアナ州<br>(Indiana)",
+
+pic20: "ミシシッピ州<br>(Mississippi)",
+
+pic21: "イリノイ州<br>(Illinois)",
+
+pic22: "アラバマ州<br>(Alabama)",
+
+pic23: "メイン州<br>(Maine)",
+
+pic24: "ミズーリ州<br>(Missouri)",
+
+pic25: "アーカンソー州<br>(Arkansas)",
+
+pic26: "ミシガン州<br>(Michigan)",
+
+pic27: "フロリダ州<br>(Florida)",
+
+pic28: "テキサス州<br>(Texas)",
+
+pic29: "アイオワ州<br>(Iowa)",
+
+pic30: "ウィスコンシン州<br>(Wisconsin)",
+
+pic31: "カリフォルニア州<br>(California)",
+
+pic32: "ミネソタ州<br>(Minnesota)",
+
+pic33: "オレゴン州<br>(Oregon)",
+
+pic34: "カンザス州<br>(Kansas)",
+
+pic35: "ウェストバージニア州<br>(West Virginia)",
+
+pic36: "ネバダ州<br>(Nevada)",
+
+pic37: "ネブラスカ州<br>(Nebraska)",
+
+pic38: "コロラド州<br>(Colorado)",
+
+pic39: "ノースダコタ州<br>(North Dakota)",
+
+pic40: "サウスダコタ州<br>(South Dakota)",
+
+pic41: "モンタナ州<br>(Montana)",
+
+pic42: "ワシントン州<br>(Washington)",
+
+pic43: "アイダホ州<br>(Idaho)",
+
+pic44: "ワイオミング州<br>(Wyoming)",
+
+pic45: "ユタ州<br>(Utah)",
+
+pic46: "オクラホマ州<br>(Oklahoma)",
+
+pic47: "アリゾナ州<br>(Arizona)",
+
+pic48: "ニューメキシコ州<br>(New Mexico)"
+    }
+    while (表示順.length < (Math.floor(州番号上限 / 2)) + 1) {
+        const 番号 = Math.floor(Math.random() * 48) + 1;
+        if (!(表示順.includes(番号))) {
+            表示順.push(番号);
+        }
+    }
+    let 現在表示している写真の順番 = 0;
+    const 初期表示州名プロパティ = "pic" + 表示順[Math.floor(現在表示している写真の順番 / 2)].toString();
+    答え表示テキスト部.innerHTML = 州名[初期表示州名プロパティ];
+    const srcの先頭部 = "./pictures/theus_states_quiz/"
+    const 白地図表示html = `<img src="${srcの先頭部}0.jpg" style="width: 60%;">`
+    写真表示フィールド.innerHTML = 白地図表示html;
+    ボタン.addEventListener("click", () => {
+        if (現在表示している写真の順番 <= 州番号上限) {
+            現在表示している写真の順番 += 1;
+            if (!(現在表示している写真の順番 % 2)) {
+                const 州名プロパティ = "pic" + 表示順[Math.floor(現在表示している写真の順番 / 2)].toString();
+                答え表示テキスト部.innerHTML = 州名[州名プロパティ];
+                終了しました.innerHTML = `(${Math.floor(現在表示している写真の順番 / 2) + 1}問目)`;
+                写真表示フィールド.innerHTML = 白地図表示html;
+            }
+            else {
+                写真表示フィールド.innerHTML = `<img src="${srcの先頭部}${表示順[Math.floor(現在表示している写真の順番 / 2)]}.jpg" style="width: 60%;">`
+                console.log(Math.floor(現在表示している写真の順番 / 2));
+            }
+        }
+        else if (現在表示している写真の順番 === 州番号上限 + 1) {
+            終了しました.innerHTML = "終了しました";
+            ボタン.style.backgroundColor = "gray";
+            ボタン.style.cursor = "not-allowed";
+        }
+    })
+    
+</script>
+</body>
+</html>
+
