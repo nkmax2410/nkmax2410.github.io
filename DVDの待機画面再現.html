@@ -13,7 +13,7 @@
         window.onload = function() {
             const canvas = document.getElementById("sketchbook");
             if (canvas && canvas.getContext) {
-                canvas.width = canvasWidth;
+                canvas.width = canvasWidth - 20;
                 canvas.height = 200;
                 let x = 0, y = 0;
                 let x_dir = false, y_dir = false;
@@ -64,4 +64,5 @@
 
     </script>
 </body>
+
 </html>
