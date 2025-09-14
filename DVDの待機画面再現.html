@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-width=1.0">
+    <title>DVDの謎の画面みたいなやつ？</title>
+</head>
+<body>
+    <canvas id="sketchbook" style="border: 2px solid black;"></canvas>
+    <script>
+        "use strict";
+        const canvasWidth = window.innerWidth
+        window.onload = function() {
+            const canvas = document.getElementById("sketchbook");
+            if (canvas && canvas.getContext) {
+                canvas.width = canvasWidth;
+                canvas.height = 200;
+                let x = 0, y = 0;
+                let x_dir = false, y_dir = false;
+                const rect_long = 20;
+                function move() {
+                    if (x >= (canvas.width - rect_long) || x <= 0) {
+                        x_dir = !x_dir;
+                    }
+                    if (y >= (canvas.height - rect_long) || y <= 0) {
+                        y_dir = !y_dir;
+                    }
+                    if (x_dir) {
+                        x += 2;
+                    }
+                    else {
+                        x -= 2;
+                    }
+                    if (y_dir) {
+                        y += 2;
+                    }
+                    else {
+                        y -= 2;
+                    }
+                    ctx.fillStyle = "#fff";
+                    ctx.fillRect(0, 0, canvas.width, 200);
+                    ctx.fillStyle = "red";
+                    ctx.fillRect(x, y, rect_long, rect_long)
+                    ctx.strokeRect(x,y,rect_long,rect_long);
+                    
+                }
+                const ctx = canvas.getContext("2d");
+                ctx.strokeStyle = "#000";
+                ctx.lineWidth = 2;
+                ctx.fillStyle = "red";
+                ctx.fillRect(x, y, rect_long, rect_long);
+                ctx.strokeRect(x,y,rect_long,rect_long);
+                setInterval(move, 20)
+                console.log("canvas.height: " + canvas.height + "\n" + "canvas.width: " + canvas.width);
+                window.addEventListener("resize", ()=> {
+                    canvas.width = window.innerWidth - 20;
+                    if (x > window.innerWidth -20-rect_long) {
+                        x = window.innerWidth -20-rect_long;
+                    }
+                })
+            }
+        }
+        
+
+    </script>
+</body>
+</html>
